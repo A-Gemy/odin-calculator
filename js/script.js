@@ -15,6 +15,7 @@ equal.addEventListener("click", () => {
 });
 
 const decimal = document.querySelector(".decimal");
+decimal.addEventListener("click", addDecimal);
 const deleteBtn = document.querySelector(".del");
 const clear = document.querySelector(".clear");
 clear.addEventListener("click", clearCalculation);
@@ -141,4 +142,12 @@ function clearCalculation() {
   // Update display
   currentDisplayNumber.textContent = "0";
   previousDisplayNumber.textContent = "0";
+}
+
+/* Adds a decimal point to the current number if it doesn't already contain one. */
+function addDecimal() {
+  if (!currentNumber.includes(".")) {
+    currentNumber += ".";
+    currentDisplayNumber.textContent = currentNumber;
+  }
 }
