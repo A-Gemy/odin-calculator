@@ -38,9 +38,9 @@ function handleNumber(number) {
     currentDisplayNumber.textContent = currentNumber;
   }
   // Append the input number to the current number,
-  // if the current number is less than or equal to 11,
+  // if the current number is less than or equal to 14,
   // and update the display with the current number.
-  if (currentNumber.length <= 11) {
+  if (currentNumber.length <= 14) {
     currentNumber += number;
     currentDisplayNumber.textContent = currentNumber;
   }
@@ -105,9 +105,15 @@ function calculate() {
       previousNumber /= currentNumber;
       break;
   }
-
+  // Round the value of `previousNumber` to 2 decimal places
+  previousNumber = roundNumber(previousNumber);
   previousNumber = previousNumber.toString();
   displayResult();
+}
+
+/* Rounds a number to 2 decimal places. */
+function roundNumber(num) {
+  return Math.round(num * 100) / 100;
 }
 
 /* Updates the display of the calculator with the result of the calculation. Resets the variables. */
