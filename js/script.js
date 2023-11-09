@@ -7,6 +7,8 @@ let operator = "";
 const currentDisplayNumber = document.querySelector(".currentNumber");
 const previousDisplayNumber = document.querySelector(".previousNumber");
 
+window.addEventListener("keydown", handleKeyPress);
+
 const equal = document.querySelector(".equal");
 equal.addEventListener("click", () => {
   if (currentNumber != "" && previousNumber != "") {
@@ -99,9 +101,7 @@ function calculate() {
     case "/":
       if (currentNumber <= 0) {
         previousNumber = "Error";
-        previousDisplayNumber.textContent = "0";
-        currentDisplayNumber.textContent = previousNumber;
-        operator = "";
+        displayResult();
         return;
       }
       previousNumber /= currentNumber;
@@ -173,5 +173,28 @@ function handleDelete() {
       previousNumber = currentNumber;
       currentDisplayNumber.textContent = "0";
     }
+  }
+}
+
+/* Handles key press events. */
+function handleKeyPress(e) {
+  e.preventDefault();
+  if (e.key >= 0 && e.key <= 9) {
+    handleNumber(e.key);
+  }
+  if ((e.key === "Enter" || e.key === "=") && currentNumber && previousNumber) {
+    calculate();
+  }
+  if (e.key === "+" || e.key === "-" || e.key === "/") {
+    handleOperator(e.key);
+  }
+  if (e.key === "*") {
+    handleOperator("x");
+  }
+  if (e.key === ".") {
+    addDecimal();
+  }
+  if (e.key === "Backspace") {
+    handleDelete();
   }
 }
