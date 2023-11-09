@@ -17,6 +17,7 @@ equal.addEventListener("click", () => {
 const decimal = document.querySelector(".decimal");
 decimal.addEventListener("click", addDecimal);
 const deleteBtn = document.querySelector(".del");
+deleteBtn.addEventListener("click", handleDelete);
 const clear = document.querySelector(".clear");
 clear.addEventListener("click", clearCalculation);
 
@@ -149,5 +150,28 @@ function addDecimal() {
   if (!currentNumber.includes(".")) {
     currentNumber += ".";
     currentDisplayNumber.textContent = currentNumber;
+  }
+}
+
+/* Deletes characters from the current number being displayed on a calculator. */
+function handleDelete() {
+  // If the current number is not empty
+  if (currentNumber !== "") {
+    currentNumber = currentNumber.slice(0, -1);
+    currentDisplayNumber.textContent = currentNumber;
+  }
+  // If the current number becomes empty after deletion
+  if (currentNumber === "") {
+    currentDisplayNumber.textContent = "0";
+  }
+  // If the current number is empty, previous number is not empty, and no operator is selected
+  if (currentNumber === "" && previousNumber !== "" && operator === "") {
+    if (previousNumber.length > 1) {
+      previousNumber = previousNumber.slice(0, -1);
+      currentDisplayNumber.textContent = previousNumber;
+    } else {
+      previousNumber = currentNumber;
+      currentDisplayNumber.textContent = "0";
+    }
   }
 }
